@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama Performance Tester</title>
+    <meta name="description" content="Ollama model performans test araci">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <canvas id="matrix-bg"></canvas>
+    <div class="scanline-overlay"></div>
+
+    <div id="app">
+        <div id="selection-screen" class="screen active">
+            <div class="header">
+                <h1 class="glitch" data-text="OLLAMA PERF TESTER">OLLAMA PERF TESTER</h1>
+                <p class="subtitle">Model Performance Benchmarking System</p>
+            </div>
+
+            <div id="error-banner" class="error-banner hidden"></div>
+
+            <div class="panels-container">
+                <div class="panel config-panel">
+                    <div class="panel-header">
+                        <span class="panel-icon">&#9881;</span>
+                        <span>TEST YAPILANDIRMASI</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="model-select">Model Secimi</label>
+                        <div class="select-wrapper">
+                            <select id="model-select">
+                                <option value="">Yukleniyor...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="num-parallel">Paralel Islem (num_parallel)</label>
+                            <input type="number" id="num-parallel" value="1" min="1" max="16" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="num-users">Kullanici Sayisi</label>
+                            <input type="number" id="num-users" value="3" min="1" max="20" step="1">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="max-words">Max Kelime (Cikti Limiti)</label>
+                            <input type="number" id="max-words" value="50" min="1" max="1000" step="5">
+                        </div>
+                    </div>
+
+                    <button id="btn-start" class="btn-primary" disabled>
+                        <span class="btn-icon">&#9654;</span>
+                        <span>BASLAT</span>
+                    </button>
+                </div>
+
+                <div class="panel running-panel">
+                    <div class="panel-header">
+                        <span class="panel-icon">&#128293;</span>
+                        <span>CALISAN MODELLER</span>
+                        <button id="btn-refresh-running" class="btn-icon-small" title="Yenile">&#10227;</button>
+                    </div>
+                    <div id="running-models-list" class="running-models-list">
+                        <div class="empty-state">Kontrol ediliyor...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="test-screen" class="screen">
+            <div class="test-header">
+                <div class="test-info">
+                    <h2 id="test-model-name">Model: —</h2>
+                    <div class="test-meta">
+                        <span id="test-parallel-info">Paralel: —</span>
+                        <span class="separator">|</span>
+                        <span id="test-user-count">Kullanici: —</span>
+                        <span class="separator">|</span>
+                        <span id="test-elapsed">Sure: 0s</span>
+                    </div>
+                </div>
+                <div class="test-actions">
+                    <button id="btn-cancel" class="btn-danger">
+                        <span>&#9632;</span> IPTAL
+                    </button>
+                    <button id="btn-back" class="btn-secondary hidden">
+                        <span>&#8592;</span> GERI
+                    </button>
+                </div>
+            </div>
+
+            <div id="terminals-grid" class="terminals-grid"></div>
+
+            <div id="summary-bar" class="summary-bar hidden">
+                <div class="summary-item">
+                    <span class="summary-label">Cold Start</span>
+                    <span id="summary-cold-start" class="summary-value">—</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Benchmark Suresi</span>
+                    <span id="summary-total-time" class="summary-value">—</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Ort. Token/s</span>
+                    <span id="summary-avg-tps" class="summary-value">—</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Toplam Token</span>
+                    <span id="summary-total-tokens" class="summary-value">—</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Durum</span>
+                    <span id="summary-status" class="summary-value">—</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+
+</html>

@@ -1,3 +1,9 @@
+
+![1_](https://github.com/user-attachments/assets/798b06b1-af80-4c06-bbcc-e71f4a26de74)
+![2](https://github.com/user-attachments/assets/e18aaebc-2f0f-4e19-be47-5b5f7ab1656c)
+
+
+
 # Ollama Performance Tester
 
 Lokalde calisan Ollama modelleri uzerinde paralel performans testi yapmak icin kullanilir.
